@@ -1,0 +1,27 @@
+name: sample
+
+on:
+  pull_request:
+    paths-ignore:
+      - '**.md'
+  push:
+    branches:
+      - main
+      - releases/*
+    paths-ignore:
+      - '**.md'
+
+jobs:
+  demo:
+    runs-on: macos-latest
+    name: Sample demo
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Label iOS version Info.plist
+        uses: neilkimmett/label-ios-version-info-plist-action@v1.0.0
+        with:
+          repo-token: "${{ secrets.GITHUB_TOKEN }}"
+          info-plist-path: './samples/Info.plist'
+          print-file: true
